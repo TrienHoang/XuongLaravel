@@ -2,8 +2,55 @@
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Middleware\CheckAdminMiddleware;
 
 Route::get('/', function () {
-    $user = DB::table('users')->get();
-    dd($user);
+    return view('client.home');
+})->name('client.home');
+
+
+Route::get('/auth', [AuthController::class, 'index'])->name('auth');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+
+Route::group([
+    'prefix' => 'admin',
+    'as' => 'admin.',
+    'middleware' => 'checkAdmin'
+], function () {
+    Route::get('/', function () {
+        return view('admin.dashboard');
+    })->name('dashboard');
+
+    // Nhóm categories
+    Route::group([
+        'prefix' => 'categories',
+        'as' => 'categories.'
+    ], function () {
+        Route::get('/', [CategoryController::class, 'listCategory'])->name('listCategory');
+        Route::get('add-category', [CategoryController::class, 'addCategory'])->name('addCategory');
+        Route::post('add-category', [CategoryController::class, 'addPostCategory'])->name('addPostCategory');
+        Route::delete('delete-category/{id}', [CategoryController::class, 'deleteCategory'])->name('deleteCategory');
+        Route::get('detail-category/{id}', [CategoryController::class, 'detailCategory'])->name('detailCategory');
+        Route::get('update-category/{id}', [CategoryController::class, 'updateCategory'])->name('updateCategory');
+        Route::patch('update-category/{id}', [CategoryController::class, 'updatePatchCategory'])->name('updatePatchCategory');
+    });
+
+    // Nhóm users
+    Route::group([
+        'prefix' => 'users',
+        'as' => 'users.'
+    ], function () {
+        Route::get('/', [UserController::class, 'listUser'])->name('listUser');
+        Route::get('add-user', [UserController::class, 'addUser'])->name('addUser');
+        Route::post('add-user', [UserController::class, 'addPostUser'])->name('addPostUser');
+        Route::delete('delete-user/{id}', [UserController::class, 'deleteUser'])->name('deleteUser');
+        Route::get('detail-user/{id}', [UserController::class, 'detailUser'])->name('detailUser');
+        Route::get('update-user/{id}', [UserController::class, 'updateUser'])->name('updateUser');
+        Route::patch('update-user/{id}', [UserController::class, 'updatePatchUser'])->name('updatePatchUser');
+    });
 });

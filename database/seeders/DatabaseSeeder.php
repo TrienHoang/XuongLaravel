@@ -23,21 +23,22 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call([
-            // RoleSeeder::class
-            // PermissionSeeder::class
-            // RolePermissionSeeder::class
-            // UserSeeder::class
-            // UploadFileSeeder::class
-            // BrandSeeder::class
-            // CategorySeeder::class
-            // ProductSeeder::class
-            // ProductCommentSeeder::class
-            // OrderSeeder::class,
-            // OrderDetailSeeder::class,
-            // CartSeeder::class,
-            // CartDetailSeeder::class,
-            // PostSeeder::class,
-            // PostCommentSeeder::class
+            RoleSeeder::class,
+            PermissionSeeder::class,
+            RolePermissionSeeder::class,
+            UserSeeder::class,
+            UploadFileSeeder::class,
+            BrandSeeder::class,
+            CategorySeeder::class,
+            ProductSeeder::class,
+            ProductCommentSeeder::class,
+            OrderSeeder::class,
+            OrderDetailSeeder::class,
+            CartSeeder::class,
+            CartDetailSeeder::class,
+            PostSeeder::class,
+            PostCommentSeeder::class,
+            AlbumProductSeeder::class
         ]);
     }
 }

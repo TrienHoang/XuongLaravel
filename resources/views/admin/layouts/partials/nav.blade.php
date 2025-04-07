@@ -14,7 +14,7 @@
                             <ul class="profile-dropdown onhover-show-div">
                                 <li>
                                     <a 
-                                        href="{{ route('logout')}}">
+                                        href="/logout">
                                         <i data-feather="log-out"></i>
                                         Log out
                                     </a>

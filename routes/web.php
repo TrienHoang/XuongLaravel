@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CategoryController;
@@ -40,6 +41,19 @@ Route::group([
         Route::patch('update-category/{id}', [CategoryController::class, 'updatePatchCategory'])->name('updatePatchCategory');
     });
 
+    Route::group([
+        'prefix' => 'products',
+        'as' => 'products.',    
+    ], function () {
+        Route::get('/', [ProductController::class, 'listProduct'])->name('listProduct');
+        Route::get('add-product', [ProductController::class, 'addProduct'])->name('addProduct');
+        Route::post('add-product', [ProductController::class, 'addPostProduct'])->name('addPostProduct');
+        Route::delete('delete-product/{id}', [ProductController::class, 'deleteProduct'])->name('deleteProduct');
+        Route::get('detail-product/{id}', [ProductController::class, 'detailProduct'])->name('detailProduct');
+        Route::get('update-product/{id}', [ProductController::class, 'updateProduct'])->name('updateProduct');
+        Route::patch('update-product/{id}', [ProductController::class, 'updatePatchProduct'])->name('updatePatchProduct');
+    });
+
     // Nhóm users
     Route::group([
         'prefix' => 'users',
@@ -53,4 +67,7 @@ Route::group([
         Route::get('update-user/{id}', [UserController::class, 'updateUser'])->name('updateUser');
         Route::patch('update-user/{id}', [UserController::class, 'updatePatchUser'])->name('updatePatchUser');
     });
+
+
+
 });

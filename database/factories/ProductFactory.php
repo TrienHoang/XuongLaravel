@@ -27,7 +27,6 @@ class ProductFactory extends Factory
             'quantity' => $this->faker->randomNumber(2),
             'category_id' => Category::all()->random()->id,
             'brand_id' =>  Brand::all()->random()->id,
-            'image' => UploadFile::all()->random()->id,
             'status' => $this->faker->randomElement(['active', 'inactive']),
             'created_at' => $this->faker->dateTime,
             'updated_at' => $this->faker->dateTime,

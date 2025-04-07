@@ -20,7 +20,6 @@ return new class extends Migration
             $table->integer('quantity')->default(0);
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->foreignId('brand_id')->nullable()->constrained('brands')->onDelete('set null');
-            $table->foreignId('image')->nullable()->constrained('upload_files')->onDelete('set null');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });

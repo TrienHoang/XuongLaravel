@@ -44,16 +44,5 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class, 'role_id');
     }
-
-    public function files()
-    {
-        // Một user có nhiều file
-        return $this->hasMany(UploadFile::class);
-    }
-
-    public function avatar()
-    {
-        // Một user có một avatar (là một file đặc biệt)
-        return $this->belongsTo(UploadFile::class, 'avatar');
-    }
+    
 }

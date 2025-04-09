@@ -59,15 +59,13 @@ Route::group([
         'prefix' => 'users',
         'as' => 'users.'
     ], function () {
-        Route::get('/', [UserController::class, 'listUser'])->name('listUser');
-        Route::get('add-user', [UserController::class, 'addUser'])->name('addUser');
-        Route::post('add-user', [UserController::class, 'addPostUser'])->name('addPostUser');
-        Route::delete('delete-user/{id}', [UserController::class, 'deleteUser'])->name('deleteUser');
-        Route::get('detail-user/{id}', [UserController::class, 'detailUser'])->name('detailUser');
-        Route::get('update-user/{id}', [UserController::class, 'updateUser'])->name('updateUser');
-        Route::patch('update-user/{id}', [UserController::class, 'updatePatchUser'])->name('updatePatchUser');
+        Route::get('/', [UserController::class, 'index'])->name('listUser');
+        Route::get('add-user', [UserController::class, 'create'])->name('addUser');
+        Route::post('add-user', [UserController::class, 'store'])->name('addPostUser');
+        Route::delete('delete-user/{id}', [UserController::class, 'destroy'])->name('deleteUser');
+        // Route::get('detail-user/{id}', [UserController::class, ''])->name('detailUser'); 
+        Route::get('update-user/{id}', [UserController::class, 'edit'])->name('updateUser');
+        Route::patch('update-user/{id}', [UserController::class, 'update'])->name('updatePatchUser');
     });
-
-
 
 });

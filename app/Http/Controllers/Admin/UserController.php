@@ -3,22 +3,54 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\Role;
+use App\Services\UserService;
 
-class UserController extends Controller{
-    public function listUser() {
-        $listUser = User::all();
-        return view('admin.users.list-user')->with([
-            'listUser' => $listUser
-        ]);
+class UserController extends Controller
+{
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
     }
 
-    public function addUser() {
-        $listRole = Role::all();
-        return view('admin.users.add-user')->with([
-            'listRole' => $listRole
-        ]);
+    public function index()
+    {
+        $listUser = $this->userService->getAllUsers();
+        return view('admin.users.list-user', compact('listUser'));
     }
-    
+
+    public function create()
+    {
+        $roles = Role::all();
+        return view('admin.users.add-user', compact('roles'));
+    }
+
+    public function store(StoreUserRequest $request)
+    {
+        $this->userService->createUser($request->validated());
+        return redirect()->route('admin.users.listUser')->with('success', 'User created!');
+    }
+
+    public function edit($id)
+    {
+        $user = $this->userService->getUserById($id);
+        $roles = Role::all();
+        return view('admin.users.update-user', compact('user', 'roles'));
+    }
+
+    public function update(UpdateUserRequest $request, $id)
+    {
+        $this->userService->updateUser($id, $request->validated());
+        return redirect()->route('admin.users.listUser')->with('success', 'User updated!');
+    }
+
+    public function destroy($id)
+    {
+        $this->userService->deleteUser($id);
+        return redirect()->route('admin.users.listUser')->with('success', 'User deleted!');
+    }
 }

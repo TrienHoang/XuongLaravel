@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace App\Services;
 
 use App\Repositories\ProductRepository;
 
@@ -108,6 +108,7 @@ class ProductService
 
         return $product->fresh(); // Lấy lại dữ liệu mới nhất
     }
+    
 
     public function deleteProduct($product)
     {

@@ -2,7 +2,7 @@
 
 @section('title')
     @parent
-    Danh sach danh muc
+    Danh sach nguoi dung
 @endsection
 
 @section('content')
@@ -56,18 +56,18 @@
                                                 <td>{{ $value->name }}</td>
                                                 <td>{{ $value->email  }}</td>
                                                 <td>{{ $value->phone_number  }}</td>
-                                                <td>{{ $value->  }}</td>
+                                                <td>{{ $value->role_id}}</td>
                                                 <td>{{ $value->created_at }}</td>
                                                 <td>{{ $value->updated_at}}</td>
                                                 <td>
                                                     <ul>
-                                                        <li>
+                                                        {{-- <li>
                                                             <a href="{{ route('admin.user.detailUser', $value->id) }}">
                                                             <i class="ri-eye-line"></i>
                                                             </a>
-                                                        </li>
+                                                        </li> --}}
                                                         <li>
-                                                            <a href="{{ route('admin.categories.updateUser', $value->id) }}">
+                                                            <a href="{{ route('admin.users.updateUser', $value->id) }}">
                                                             <i class="ri-pencil-line"></i>
                                                             </a>
                                                         </li>
@@ -103,7 +103,7 @@
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">Hủy</button>
                                                             <form
-                                                                action="{{ route('admin.user.deleteUser', ['id' => $value->id]) }}"
+                                                                action="{{ route('admin.users.deleteUser', ['id' => $value->id]) }}"
                                                                 method="POST">
                                                                 @csrf
                                                                 @method('DELETE')

@@ -40,9 +40,19 @@ class User extends Authenticatable
     ];
 
     // Quan hệ với bảng roles (Một user thuộc một role)
-    public function role()
+    public function role() {
+        return $this->belongsTo(Role::class);
+    }
+
+
+    public function hasPermission($permName) {
+        return $this->role && $this->role->permissions->pluck('name')->contains($permName);
+    }
+    
+
+    public function avatarFile()
     {
-        return $this->belongsTo(Role::class, 'role_id');
+        return $this->belongsTo(UploadFile::class, 'avatar', 'id');
     }
     
 }

@@ -73,4 +73,16 @@ class ProductController extends Controller
 
         return redirect()->route('admin.products.listProduct')->with('success', 'Xóa sản phẩm thành công!');
     }
+
+    public function showProduct($id) {
+        $product = Product::findOrFail($id);
+
+    // Lấy sản phẩm liên quan cùng danh mục
+        $relatedProducts = Product::where('category_id', $product->category_id)
+            ->where('id', '!=', $id)
+            ->take(4)
+            ->get();
+
+        return view('client.product-detail', compact('product', 'relatedProducts'));
+    }
 }

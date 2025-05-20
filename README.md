@@ -1,6 +1,6 @@
 1. Clone Project
 ```bash
-git clone https://github.com/TrienHoang/XuongLaravel
+git clone https://github.com/TrienHoang/SmartCareApp
 ```
 
 2. Install php briary

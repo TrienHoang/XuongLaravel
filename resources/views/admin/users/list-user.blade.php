@@ -5,6 +5,9 @@
     Danh sach nguoi dung
 @endsection
 
+{{-- @php
+dd($listUser);
+@endphp --}}
 @section('content')
     <div class="container-fluid">
         @if (session('message'))
@@ -12,7 +15,7 @@
                 {{ session('message') }}
             </div>
             @php
-            unset($_SESSION['message']);
+                unset($_SESSION['message']);
             @endphp
         @endif
 
@@ -25,7 +28,7 @@
                             <h5>All User</h5>
 
                             <form class="d-inline-flex">
-                                <a href="{{ route('admin.categories.addCategory') }}"
+                                <a href="{{ route('admin.users.addUser') }}"
                                     class="align-items-center btn btn-theme d-flex">
                                     <i data-feather="plus-square"></i>Add New
                                 </a>
@@ -39,12 +42,12 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Tên người dùng</th>
+                                            <th>Ảnh</th>
                                             <th>Email</th>
                                             <th>Số điện thoại</th>
-                                            <th>Ảnh</th>
                                             <th>Chức năng</th>
-                                            <th>ngày tạo</th>
-                                            <th>Ngày cập nhật</th>
+                                            <th>Trạng thái</th>
+                                            <th>Ngày tạo</th>
                                             <th>Hành động</th>
                                         </tr>
                                     </thead>
@@ -54,11 +57,27 @@
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>{{ $value->name }}</td>
-                                                <td>{{ $value->email  }}</td>
-                                                <td>{{ $value->phone_number  }}</td>
-                                                <td>{{ $value->role_id}}</td>
-                                                <td>{{ $value->created_at }}</td>
-                                                <td>{{ $value->updated_at}}</td>
+                                                <td>
+                                                    @if ($value->avatarFile)
+                                                        <div class="image-container">
+                                                            <img src="{{ asset('storage/' . $value->avatarFile->file_path) }}"
+                                                                alt="{{ $value->avatarFile->file_name }}" width="80"
+                                                                height="120">
+                                                        </div>
+                                                    @else
+                                                        <p>Chưa có avatar</p>
+                                                    @endif
+
+                                                </td>
+                                                <td>{{ $value->email }}</td>
+                                                <td>{{ $value->phone_number }}</td>
+                                                <td
+                                                    class="status-{{ $value->role->name == 'client' ? 'success' : 'danger' }}">
+                                                    <span>{{ $value->role->name }}</span></td>
+                                                <td class="status-{{ $value->status == 'active' ? 'success' : 'danger' }}">
+                                                        <span>{{ $value->status == 'active' ? 'Hoạt động' : 'Không hoạt động' }}</span>
+                                                </td>
+                                                <td>{{ $value->created_at->format('d/m/Y') }}</td>
                                                 <td>
                                                     <ul>
                                                         {{-- <li>
@@ -68,10 +87,10 @@
                                                         </li> --}}
                                                         <li>
                                                             <a href="{{ route('admin.users.updateUser', $value->id) }}">
-                                                            <i class="ri-pencil-line"></i>
+                                                                <i class="ri-pencil-line"></i>
                                                             </a>
                                                         </li>
-                                                        
+
                                                         <li>
                                                             <a href="#" data-bs-toggle="modal"
                                                                 data-bs-target="#deleteModal{{ $value->id }}">
@@ -118,6 +137,13 @@
 
                                     </tbody>
                                 </table>
+
+                                <!-- Phân trang -->
+                                @if ($listUser->hasPages())
+                                    <div class="mt-4">
+                                        {{ $listUser->links('pagination::bootstrap-5') }}
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>

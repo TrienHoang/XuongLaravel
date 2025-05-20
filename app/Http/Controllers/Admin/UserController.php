@@ -31,8 +31,16 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-        $this->userService->createUser($request->validated());
+            $data = $request->validated();
+            $file = $request->file('avatar');
+            $this->userService->createUser($data, $file);
         return redirect()->route('admin.users.listUser')->with('success', 'User created!');
+    }
+
+    public function show($id)
+    {
+        $user = $this->userService->getUserById($id);
+        return view('admin.users.detail-user', compact('user'));
     }
 
     public function edit($id)
@@ -44,7 +52,9 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request, $id)
     {
-        $this->userService->updateUser($id, $request->validated());
+        $data = $request->validated();
+        $file = $request->file('avatar');
+        $this->userService->updateUser($id, $data, $file);
         return redirect()->route('admin.users.listUser')->with('success', 'User updated!');
     }
 

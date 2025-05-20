@@ -84,26 +84,6 @@
         }
     </style>
 </head>
-{{-- <script>
-    $(document).ready(function() {
-        // Kiểm tra nếu có lỗi validation trong form Register
-        @if ($errors->has('name') || $errors->has('email') || $errors->has('password') || $errors->has('confirm_password'))
-            $('#register-tab').addClass('active');
-            $('#register').addClass('show active');
-            $('#login-tab').removeClass('active');
-            $('#login').removeClass('show active');
-        @endif
-
-        // Kiểm tra nếu có lỗi validation trong form Login
-        @if ($errors->has('email') || $errors->has('password'))
-            $('#login-tab').addClass('active');
-            $('#login').addClass('show active');
-            $('#register-tab').removeClass('active');
-            $('#register').removeClass('show active');
-        @endif
-    });
-</script> --}}
-
 <body>
 
     <div class="container">

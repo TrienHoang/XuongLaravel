@@ -91,10 +91,25 @@
                                     </a>
                                     <ul class="sidebar-submenu">
                                         <li>
-                                            <a href="all-users.html">All users</a>
+                                            <a href="{{ route('admin.users.listUser') }}">All users</a>
                                         </li>
                                         <li>
-                                            <a href="add-new-user.html">Add new user</a>
+                                            <a href="{{ route('admin.users.addUser') }}">Add new user</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="sidebar-list">
+                                    <a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                                        <i class="ri-user-settings-line"></i>
+                                        <span>Roles</span>
+                                    </a>
+                                    <ul class="sidebar-submenu">
+                                        <li>
+                                            <a href="{{ route('admin.roles.index') }}">All roles</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('admin.roles.create') }}">Add new role</a>
                                         </li>
                                     </ul>
                                 </li>

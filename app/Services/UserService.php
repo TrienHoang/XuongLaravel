@@ -24,17 +24,40 @@ class UserService
         return $this->userRepo->findById($id);
     }
 
-    public function createUser($data)
-    {
-        $data['password'] = Hash::make($data['password']);
-        return $this->userRepo->create($data);
-    }
-
-    public function updateUser($id, $data)
+    public function createUser(array $data, $file = null)
     {
         if (isset($data['password'])) {
             $data['password'] = Hash::make($data['password']);
         }
+
+        if ($file) {
+            $fileUpload = $this->userRepo->storeFile($file);
+            $data['avatar'] = $fileUpload->id;
+        }
+
+        return $this->userRepo->create($data);
+    }
+
+    public function updateUser($id, array $data, $file = null)
+    {
+        $user = $this->userRepo->findById($id);
+
+        if (!empty($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        } else {
+            unset($data['password']); // Không update nếu để trống
+        }
+
+        if ($file) {
+            // Delete old avatar if exists
+            if ($user->avatarFile) {
+                $this->userRepo->deleteFile($user->avatarFile);
+            }
+            // Store new avatar
+            $fileUpload = $this->userRepo->storeFile($file);
+            $data['avatar'] = $fileUpload->id;
+        }
+
         return $this->userRepo->update($id, $data);
     }
 

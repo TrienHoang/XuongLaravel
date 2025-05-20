@@ -22,7 +22,6 @@ class ProductRepository
         return $this->model->with('category', 'brand')->orderByDesc('id')->paginate($paginate);
     }
 
-
     public function find($id)
     {
         return $this->model->findOrFail($id);
